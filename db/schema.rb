@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 20170619125158) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.text "biography"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_authors_on_name", unique: true
   end
 
