@@ -10,14 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619125158) do
+ActiveRecord::Schema.define(version: 20170619131339) do
 
   create_table "authors", force: :cascade do |t|
-    t.string "name"
-    t.text "biography"
+    t.string "name", null: false
+    t.text "biography", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_authors_on_name", unique: true
+  end
+
+  create_table "poems", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "author_id", null: false
+    t.text "year", null: false
+    t.text "text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_poems_on_author_id"
   end
 
 end

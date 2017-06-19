@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Author, type: :model do
 
+  # ASSOCIATIONS
+
+  it { should have_many :poems }
+
+  # LAZY-LOADED OBJECTS
+
   let(:author) { create :author }
 
-  context "with existing name" do
-    it "is invalid" do
-      other_author = build :author, name: author.name
-      expect(other_author.valid?).to be false
-    end
-  end
+  # SPEC
+  
 end

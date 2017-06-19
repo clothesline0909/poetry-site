@@ -1,7 +1,12 @@
 class Author < ApplicationRecord
 
+  # ASSOCIATIONS
+
+  has_many :poems
+
   # VALIDATIONS
 
-  validates :name, uniqueness: true
+  validates :name, presence: true, uniqueness: true
+  validates :biography, presence: true
 
 end
