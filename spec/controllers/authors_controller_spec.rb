@@ -6,6 +6,12 @@ RSpec.describe AuthorsController, type: :controller do
 
   let(:authors) { create_list :author, 3 }
 
+  # CALLBACKS
+
+  before(:each) do
+    request.env['HTTP_ACCEPT'] = 'application/json'
+  end
+
   describe "GET index" do
 
     before(:each) do
