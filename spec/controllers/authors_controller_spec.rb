@@ -6,6 +6,7 @@ RSpec.describe AuthorsController, type: :controller do
   # LAZY-LOADED OBJECTS
 
   let(:authors) { create_list :author, 3 }
+  let(:author) { create :author }
 
   # CALLBACKS
 
@@ -42,6 +43,29 @@ RSpec.describe AuthorsController, type: :controller do
     it "doesn't return author relationships" do
       get :index
       expect(JSON.parse(response.body, symbolize_names: true)[:data].first[:relationships]).to be nil
+    end
+  end
+
+  describe "GET show" do
+
+    it "returns HTTP status OK" do
+      get :show, params: { id: author.id }
+      expect(response).to have_http_status :ok
+    end
+
+    it "renders show template" do
+      get :show, params: { id: author.id }
+      expect(response).to render_template 'authors/show'
+    end
+
+    it "returns author attributes" do
+      get :show, params: { id: author.id }
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:name]).to eq author.name
+    end
+
+    it "returns author relationships" do
+      get :show, params: { id: author.id }
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:relationships]).not_to be nil
     end
   end
 end
