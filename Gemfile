@@ -27,6 +27,7 @@ gem 'puma', '~> 3.7'
 gem 'hirb'
 gem 'statesman'
 gem 'jbuilder'
+gem 'kaminari'
 
 group :development, :test do
   gem 'pry-byebug'

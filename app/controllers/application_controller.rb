@@ -22,4 +22,12 @@ class ApplicationController < ActionController::API
 
     render 'errors/errors', status: :not_found
   end
+
+  def page_number
+    params['page'].try(:[], 'number') || 1
+  end
+
+  def page_size
+    params['page'].try(:[], 'size') || 25
+  end
 end

@@ -3,7 +3,8 @@ class PoemsController < ApplicationController
   # ACTIONS 
 
   def index
-    @poems = Poem.all
+    @unpaginated_poems = Poem.all
+    @poems = @unpaginated_poems.page(page_number).per(page_size)
   end
 
   def show
