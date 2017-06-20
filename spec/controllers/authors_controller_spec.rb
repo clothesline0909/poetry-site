@@ -44,6 +44,19 @@ RSpec.describe AuthorsController, type: :controller do
       get :index
       expect(JSON.parse(response.body, symbolize_names: true)[:data].first[:relationships]).to be nil
     end
+
+    context "with sort parameter" do
+      it "sorts by attributes" do
+        get :index, params: { sort: '-name' }
+        expect(assigns(:authors).first).to eq authors.last
+      end
+
+      it "sorts by multiple attributes" do
+        author = create :author, biography: authors.last.biography
+        get :index, params: { sort: '-biography,-id' }
+        expect(assigns(:authors).first).to eq author
+      end
+    end
   end
 
   describe "GET show" do

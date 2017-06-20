@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :author do
     sequence(:name) { |n| "Name #{n}"}
-    biography "Biography"
+    sequence(:biography) { |n| "Biography #{n}"}
   end
 end

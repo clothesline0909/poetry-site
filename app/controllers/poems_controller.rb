@@ -3,7 +3,7 @@ class PoemsController < ApplicationController
   # ACTIONS 
 
   def index
-    @unpaginated_poems = Poem.all
+    @unpaginated_poems = Poem.all.order(*sort_params_array)
     @poems = @unpaginated_poems.page(page_number).per(page_size)
   end
 

@@ -45,6 +45,19 @@ RSpec.describe PoemsController, type: :controller do
       get :index
       expect(JSON.parse(response.body, symbolize_names: true)[:data].first[:relationships]).to be nil
     end
+
+    context "with sort parameter" do
+      it "sorts by attributes" do
+        get :index, params: { sort: '-title' }
+        expect(assigns(:poems).first).to eq poems.last
+      end
+
+      it "sorts by multiple attributes" do
+        poem = create :poem, title: poems.last.title
+        get :index, params: { sort: '-title,-id' }
+        expect(assigns(:poems).first).to eq poem
+      end
+    end
   end
 
   describe "GET show" do

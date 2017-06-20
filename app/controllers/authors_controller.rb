@@ -3,7 +3,7 @@ class AuthorsController < ApplicationController
   # ACTIONS 
 
   def index
-    @unpaginated_authors = Author.all
+    @unpaginated_authors = Author.all.order(*sort_params_array)
     @authors = @unpaginated_authors.page(page_number).per(page_size)
   end
 

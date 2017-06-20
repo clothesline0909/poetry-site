@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :poem do
-    title "Title"
+    sequence(:title) { |n| "Title #{n}"}
     author
     year "Year"
     text "Text"

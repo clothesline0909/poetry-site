@@ -30,4 +30,31 @@ class ApplicationController < ActionController::API
   def page_size
     params['page'].try(:[], 'size') || 25
   end
+
+  def sort_params_array
+    sort_params_array = []
+
+    # Return default sort if no sorting specified.
+    return [id: :asc] unless params['sort']
+
+    # Get individual sort columns.
+    sort_columns = params['sort'].split(',')
+
+    # Create sort query for each column.
+    sort_columns.each do |sort_column|
+
+      # Default order is ascending.
+      order = :asc
+
+      # If sort column is preceeded by a minus, order descending.
+      if sort_column.first == '-'
+        order = :desc
+        sort_column = sort_column[1..-1]
+      end
+
+      sort_params_array << { sort_column => order }
+    end
+
+    sort_params_array
+  end
 end
