@@ -11,7 +11,6 @@ class Poem < ApplicationRecord
   # VALIDATIONS
 
   validates :title, presence: true
-  validates :author, presence: true
   validates :year, presence: true
   validates :text, presence: true
 
