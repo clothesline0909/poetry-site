@@ -15,16 +15,18 @@ RSpec.describe URLBuilder do
 
   # CLASS METHODS
 
-  describe "::url_for" do
-    context "author" do
+  describe "::url_for_model" do
+    context "with Author" do
       it "builds the correct URL" do
-        expect(URLBuilder.url_for(author)).to eq "http://www.example.com/authors/#{author.id}"
+        expect(URLBuilder.url_for_model(Author)).to eq "http://www.example.com/authors"
       end
     end
+  end
 
-    context "poem" do
+  describe "::url_for_resource" do
+    context "with an author" do
       it "builds the correct URL" do
-        expect(URLBuilder.url_for(poem)).to eq "http://www.example.com/poems/#{poem.id}"
+        expect(URLBuilder.url_for_resource(author)).to eq "http://www.example.com/authors/#{author.id}"
       end
     end
   end

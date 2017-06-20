@@ -7,9 +7,17 @@ class AuthorsController < ApplicationController
   end
 
   def show
+    @author = Author.find(params[:id])
   end
 
   def create
+    @author = Author.new(author_params)
+
+    if @author.save
+      render 'authors/show'
+    else
+      render 'authors/errors', status: :bad_request
+    end
   end
 
   def update
@@ -21,6 +29,6 @@ class AuthorsController < ApplicationController
   private
 
   def author_params
-    params.require(:data).permit(:type, attributes: [:name, :biography])
+    params.require(:data).permit(attributes: [:name, :biography])
   end
 end
