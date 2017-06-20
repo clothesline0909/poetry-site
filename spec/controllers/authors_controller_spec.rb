@@ -104,6 +104,39 @@ RSpec.describe AuthorsController, type: :controller do
     end
   end
 
-  describe "PUT/PATCH update" do
+  describe "PATCH update" do
+    let(:author_params) do
+      {
+        id: author.id,
+        data: {
+          type: "authors",
+          id: author.id,
+          attributes: {
+            name: 'Name',
+            biography: 'Biography'
+          }
+        }
+      }
+    end
+
+    it "returns HTTP status OK" do
+      patch :update, params: author_params
+      expect(response).to have_http_status :ok
+    end
+
+    it "renders show template" do
+      post :create, params: author_params
+      expect(response).to render_template 'authors/show'
+    end
+
+    it "returns author attributes" do
+      post :create, params: author_params
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:name]).to eq 'Name'
+    end
+
+    it "returns author relationships" do
+      post :create, params: author_params
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:relationships]).not_to be nil
+    end
   end
 end
