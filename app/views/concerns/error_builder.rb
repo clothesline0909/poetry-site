@@ -20,7 +20,7 @@ class ErrorBuilder
   def self.formatted_errors_for_attribute(attribute, errors)
     errors.map do |error|
       {
-        status: '400',
+        status: 400,
         detail: get_detail_message(error[:error], attribute, error[:value])
       }
     end

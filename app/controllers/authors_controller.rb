@@ -21,6 +21,14 @@ class AuthorsController < ApplicationController
   end
 
   def update
+    @author = Author.find(params[:id])
+    @author.update_attributes(author_params)
+
+    if @author.save
+      render 'authors/show'
+    else
+      render 'authors/errors', status: :bad_request
+    end
   end
 
   def destroy
