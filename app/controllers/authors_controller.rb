@@ -14,7 +14,7 @@ class AuthorsController < ApplicationController
     @author = Author.new(author_params)
 
     if @author.save
-      render 'authors/show'
+      render 'authors/show', status: :created
     else
       render 'authors/errors', status: :bad_request
     end

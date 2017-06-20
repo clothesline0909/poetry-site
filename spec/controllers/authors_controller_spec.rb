@@ -68,4 +68,42 @@ RSpec.describe AuthorsController, type: :controller do
       expect(JSON.parse(response.body, symbolize_names: true)[:data][:relationships]).not_to be nil
     end
   end
+
+  describe "POST create" do
+
+    let(:author_params) do
+      {
+        data: {
+          type: "authors",
+          attributes: {
+            name: 'Name',
+            biography: 'Biography'
+          }
+        }
+      }
+    end
+
+    it "returns HTTP status OK" do
+      post :create, params: author_params
+      expect(response).to have_http_status :created
+    end
+
+    it "renders show template" do
+      post :create, params: author_params
+      expect(response).to render_template 'authors/show'
+    end
+
+    it "returns author attributes" do
+      post :create, params: author_params
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:name]).to eq 'Name'
+    end
+
+    it "returns author relationships" do
+      post :create, params: author_params
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:relationships]).not_to be nil
+    end
+  end
+
+  describe "PUT/PATCH update" do
+  end
 end
