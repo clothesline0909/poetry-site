@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
 
   # RESCUES
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_error
 
   private
 
@@ -14,7 +14,12 @@ class ApplicationController < ActionController::API
     response.headers['Content-Type'] = 'application/vnd.api+json'
   end
 
-  def record_not_found
-    head :not_found
+  def record_not_found_error(exception)
+    @errors = [{
+      status: 404,
+      detail: exception.message
+    }]
+
+    render 'errors/errors', status: :not_found
   end
 end

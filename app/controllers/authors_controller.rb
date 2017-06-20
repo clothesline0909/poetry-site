@@ -11,23 +11,23 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.new(author_params)
+    @author = Author.new(author_attributes_params)
 
     if @author.save
       render 'authors/show', status: :created
     else
-      render 'authors/errors', status: :bad_request
+      render 'errors/errors', status: :bad_request
     end
   end
 
   def update
     @author = Author.find(params[:id])
-    @author.update_attributes(author_params)
+    @author.assign_attributes(author_attributes_params)
 
     if @author.save
       render 'authors/show'
     else
-      render 'authors/errors', status: :bad_request
+      render 'errors/errors', status: :bad_request
     end
   end
 
@@ -36,7 +36,7 @@ class AuthorsController < ApplicationController
 
   private
 
-  def author_params
+  def author_attributes_params
     params.require(:data).permit(attributes: [:name, :biography])
   end
 end

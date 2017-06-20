@@ -7,6 +7,7 @@ RSpec.describe PoemsController, type: :controller do
 
   let(:poems) { create_list :poem, 3 }
   let(:poem) { create :poem }
+  let(:author) { create :author }
 
   # CALLBACKS
 
@@ -83,11 +84,19 @@ RSpec.describe PoemsController, type: :controller do
     let(:poem_params) do
       {
         data: {
-          type: "poems",
+          type: 'poems',
           attributes: {
             title: 'Title',
             year: 'Year',
             text: 'Text'
+          },
+          relationships: {
+            author: {
+              data: {
+                type: 'authors',
+                id: author.id
+              }
+            }
           }
         }
       }
@@ -125,6 +134,14 @@ RSpec.describe PoemsController, type: :controller do
             title: 'Title',
             year: 'Year',
             text: 'Text'
+          },
+          relationships: {
+            author: {
+              data: {
+                type: 'authors',
+                id: author.id
+              }
+            }
           }
         }
       }
@@ -142,7 +159,7 @@ RSpec.describe PoemsController, type: :controller do
 
     it "returns poem attributes" do
       post :create, params: poem_params
-      expect(JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:name]).to eq 'Name'
+      expect(JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:title]).to eq 'Title'
     end
 
     it "returns poem relationships" do
