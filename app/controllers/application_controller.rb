@@ -11,6 +11,8 @@ class ApplicationController < ActionController::API
   private
 
   def set_headers
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080'
+    response.headers['Access-Control-Allow-Method'] = %w(OPTIONS GET POST PATCH DELETE).join(',')
     response.headers['Content-Type'] = 'application/vnd.api+json'
   end
 

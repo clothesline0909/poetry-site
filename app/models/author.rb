@@ -2,7 +2,7 @@ class Author < ApplicationRecord
 
   # ASSOCIATIONS
 
-  has_many :poems
+  has_many :poems, dependent: :destroy
 
   # VALIDATIONS
 
